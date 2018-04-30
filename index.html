@@ -1,0 +1,264 @@
+  <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- PAGE settings -->
+  <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
+  <title>Refbook - Pallacanestro</title>
+
+  <!-- CSS dependencies -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="aquamarine.css">
+  <!-- Script: Make my navbar transparent when the document is scrolled to top -->
+  <script src="js/navbar-ontop.js"></script>
+  <!-- Script: Animated entrance -->
+  <script src="js/animate-in.js"></script>
+
+  <script>
+
+      function sendEmail() {
+
+        var db = firebase.firestore();
+
+        var fakeDoorButton = document.getElementById('fake_door_button');
+        var fakeDoorTextfield = document.getElementById('fake_door_textfield');
+        var fakeDoorSuggestion = document.getElementById('fake_door_suggestion');
+
+        if (validateEmail(fakeDoorTextfield)) {
+
+            fakeDoorButton.disabled = true;
+
+            db.collection("fake_door").add({
+                email: fakeDoorTextfield.value
+            })
+            .then(function(docRef) {
+
+                fakeDoorSuggestion.innerHTML = "Ti invieremo un'email non appena Refbook sarà disponibile!";
+                fakeDoorButton.disabled = false;
+            })
+            .catch(function(error) {
+
+                fakeDoorSuggestion.innerHTML = "Errore durante l'invio dell'email";
+                fakeDoorButton.disabled = false;
+            });
+        }
+        else {
+
+            fakeDoorSuggestion.innerHTML = "Inserisci un'email valida";
+        }
+      }
+
+      function validateEmail(emailField){
+
+          var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+          if (reg.test(emailField.value) == false) {
+              return false;
+          }
+
+          return true;
+      }
+
+    </script>
+
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="#">Refbook</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+      <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="#designazioni">Designazioni</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="#stats">Stats &amp; Wallet</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="#features">Altre Funzioni</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Cover -->
+  <div class="pt-5 bg-primary" style="background-image: url('assets/app/background.jpg');">
+    <div class="container mt-5 pt-3">
+      <div class="row">
+        <div class="col-md-6 my-5 text-lg-left text-center align-self-center">
+          <h1 class="display-1">Refbook</h1>
+          <p class="lead">Tu arbitra, al resto pensiamo noi!</p>
+          <div class="row mt-4">
+            <div class="col-6 col-lg-12">
+              <button class="btn btn-secondary w-50 p-2" data-toggle="modal" data-target="#mymodal">GET IT NOW! </button>
+              <div class="modal" id="mymodal">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Attenzione!</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Siamo dispiaciuti :( la piattaforma non è ancora del tutto pronta!
+                        <br>Stiamo lavorando per voi! Lasciaci la tua mail e ti avviseremo il prima possibile!</p>
+                      <form class="form-inline">
+                        <div class="input-group">
+                          <input id="fake_door_textfield" type="email" class="form-control" placeholder="La tua email">
+                          <div class="input-group-append">
+                            <button id="fake_door_button" class="btn btn-primary" type="button" onclick="sendEmail()">Subscribe</button>
+                          </div>
+                        </div>
+                      </form>
+                      <p id="fake_door_suggestion" style="font-size: small"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <img class="img-fluid d-block mx-auto" src="assets/app/iphone_cover_light.png" width="400"> </div>
+      </div>
+    </div>
+  </div>
+  <!-- Article style section -->
+  <div class="py-5" id="designazioni">
+    <div class="container">
+      <div class="row py-5">
+        <div class="col-md-5 order-2 order-md-1">
+          <img class="img-fluid d-block my-3 mx-auto animate-in-left" src="assets/app/iphone_side_light.png" width="400"> </div>
+        <div class="col-md-7 align-self-center order-1 order-md-2 my-3 text-md-left text-center">
+          <h2>Rilevazione automatica delle designazioni &amp; Invio risutato post partita</h2>
+          <p class="my-4 text-muted">Refbook rileva automaticamente le tue nuove designazioni, organizza per te le prossime partite e ti consiglia le migliori soluzioni per le tue trasferte.&nbsp;
+            <br>Dopo la partita una notifica ti ricorderà di mandare il messaggio con il risultato, che sarà già precompilato all'interno dell'app, dovrai inserire solo il risultato della gara.</p>
+        </div>
+      </div>
+      <div class="row pt-5" style="background-image: url('assets/app/background.png')" id="stats">
+        <div class="align-self-center col-lg-7 text-md-left text-center">
+          <h2>Stats &amp; Wallet</h2>
+          <p class="my-4 text-muted">Refbook mensilmente ti informa del tuo andamento arbitrale grazie ad un avanzato sistema di analisi dati che ti permetterà di individuare con semplicità le tue aree di miglioramento.&nbsp;
+            <br>Il servizio Wallet di Refbook gestisce automaticamente i gettoni gara e ti fornisce un valido mezzo di confronto con la piattaforma ufficiale della Federazione. &nbsp;</p>
+        </div>
+        <div class="align-self-center mt-5 col-lg-5">
+          <img class="img-fluid d-block animate-in-right" src="assets/app/iphone_ipad_light.png"> </div>
+      </div>
+      <hr class="mt-0"> </div>
+  </div>
+  <!-- Features -->
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3"> </div>
+        <div class="col-md-6"> </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-5" id="features">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h2 class="pb-4">Features</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="align-self-center text-md-right text-center col-lg-3 col-md-2">
+          <h4 class="text-primary">Responsive design</h4>
+          <p class="mb-5">Basato sui principi del Material Design.
+            <br>Funziona su qualsiasi dispositivo.</p>
+          <h4 class="text-primary">Customized settings</h4>
+          <p class="mb-5">Modifica le impostazioni a tuo piacimento senza nessun limite.</p>
+          <h4 class="text-primary">Connect</h4>
+          <p class="mb-5">Chat In-app con i colleghi.
+            <br>Il tuo network dove e quando vuoi.</p>
+        </div>
+        <div class="my-3 col-md-6 d-none d-lg-block">
+          <img class="img-fluid d-block mx-auto animate-in-down" src="assets/app/iphone_features_light.png" width="400"> </div>
+        <div class="align-self-center text-md-left text-center col-lg-3 col-md-6">
+          <h4 class="text-primary">Battery-friendly</h4>
+          <p class="mb-5">Operazioni in background ottimizzate per non stressare il tuo hardware</p>
+          <h4 class="text-primary">Support</h4>
+          <p class="mb-5">Il team d'assistenza è sempre a tua disposizione per ogni evenienza.</p>
+          <h4 class="text-primary">Share Refbook</h4>
+          <p class="mb-5">Aiutaci ad allargare il Network, invita i tuoi colleghi con un click!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Features -->
+  <!-- Carousel reviews -->
+  <!-- Call to action -->
+  <!--<div class="bg-primary" id="download">
+    <div class="container">
+      <div class="row py-3">
+        <div class="col-md-6">
+          <img class="img-fluid d-block my-4 animate-in-left" src="assets/app/iphone_isometric_light.png"> </div>
+        <div class="col-md-6 align-self-center text-center text-md-left">
+          <h1><b>Download Refbook</b></h1>
+          <p class="lead text-dark">Get it on your mobile device right now</p>
+          <div class="row mt-4">
+            <div class="col-6 col-md-5">
+              <a href="#">
+                <img class="center-block img-fluid d-block shadowed" src="assets/app/download_android.png"> </a>
+            </div>
+            <div class="col-6 col-md-5">
+              <a href="#">
+                <img class="center-block img-fluid d-block shadowed" src="assets/app/download_ios.png"> </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <div class="bg-dark text-white">
+    <div class="container">
+      <div class="row">
+        <div class="p-4 col-md-6">
+          <h2 class="mb-4 text-secondary">Refbook</h2>
+          <p class="text-white">Una piattaforma NON ufficiale creata appositamente per gli arbitri della Federazione Italiana Palacanestro.</p>
+        </div>
+        <div class="p-4 col-md-6">
+          <h2 class="mb-4">Contact</h2>
+          <p>
+            <a href="mailto:info.refbook@gmail.com" class="text-white"><i class="fa d-inline mr-3 text-secondary fa-envelope-o"></i>info.refbook@gmail.com</a>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <p class="text-center text-white">© Copyright 2018 Refbook - All rights reserved. </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript dependencies -->
+  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase-firestore.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAzzIQMrE7o_qkLqV109_TtZfI5UMlF3Fo",
+      authDomain: "fulcrosoftware-refbook.firebaseapp.com",
+      databaseURL: "https://fulcrosoftware-refbook.firebaseio.com",
+      projectId: "fulcrosoftware-refbook",
+      storageBucket: "fulcrosoftware-refbook.appspot.com",
+      messagingSenderId: "1091673160349"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+  <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- Script: Smooth scrolling between anchors in the same page -->
+  <script src="js/smooth-scroll.js"></script>
+
+ </body>
+
+</html>
